@@ -84,7 +84,7 @@ export class ProductsService {
         },
       });
 
-      const total = await this.productsRepo.count();
+      const total = await this.productsRepo.count(ProductStatus.PUBLISHED);
 
       return {
         itens: products,
@@ -96,5 +96,23 @@ export class ProductsService {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+  }
+
+  async getProductByCode(code: number) {
+    const product = await this.productsRepo.findUnique({
+      where: {
+        code: code,
+        status: ProductStatus.PUBLISHED,
+      },
+    });
+
+    if (!product) {
+      throw new HttpException(
+        `No product with code ${code} was found`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return product;
   }
 }
