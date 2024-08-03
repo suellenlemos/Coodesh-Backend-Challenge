@@ -10,4 +10,14 @@ export class ProductsRepository {
   create(createDto: Prisma.ProductCreateArgs) {
     return this.prismaService.product.create(createDto);
   }
+
+  findAll<T extends Prisma.ProductFindManyArgs>(
+    findManyDto: Prisma.SelectSubset<T, Prisma.ProductFindManyArgs>,
+  ) {
+    return this.prismaService.product.findMany(findManyDto);
+  }
+
+  count() {
+    return this.prismaService.product.count();
+  }
 }

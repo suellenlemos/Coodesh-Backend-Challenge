@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { toZonedTime } from 'date-fns-tz';
 
 import { CreateProductDto } from './dto/create-product.dto';
+import { ProductStatus } from './entities/Product';
 import { ProductsRepository } from 'src/shared/database/repositories/products.repositories';
 
 @Injectable()
@@ -42,7 +43,7 @@ export class ProductsService {
     return this.productsRepo.create({
       data: {
         code,
-        status,
+        status: ProductStatus.PUBLISHED,
         importedT: convertTimeZone(importedT),
         url,
         creator,
@@ -66,5 +67,34 @@ export class ProductsService {
         imageUrl,
       },
     });
+  }
+
+  async findAll(page: number = 1, perPage: number = 5) {
+    try {
+      const skip = (page - 1) * perPage;
+
+      const products = await this.productsRepo.findAll({
+        where: {
+          status: ProductStatus.PUBLISHED,
+        },
+        take: perPage,
+        skip: skip,
+        orderBy: {
+          importedT: 'desc',
+        },
+      });
+
+      const total = await this.productsRepo.count();
+
+      return {
+        itens: products,
+        total: total,
+      };
+    } catch (error) {
+      throw new HttpException(
+        'Failed to get all products',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
