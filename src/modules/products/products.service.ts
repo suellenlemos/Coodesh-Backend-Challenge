@@ -115,4 +115,24 @@ export class ProductsService {
 
     return product;
   }
+
+  async remove(code: number) {
+    const deletedProduct = await this.productsRepo.delete({
+      where: {
+        code: code,
+      },
+      data: {
+        status: ProductStatus.TRASH,
+      },
+    });
+
+    if (!deletedProduct) {
+      throw new HttpException(
+        `No product with code ${code} was found`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+
+    return deletedProduct;
+  }
 }

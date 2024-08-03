@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpException,
   HttpStatus,
@@ -38,6 +39,23 @@ export class ProductsController {
     } catch (error) {
       throw new HttpException(
         error.message || 'An error occurred while fetching the product',
+        error.getStatus() || HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Delete(':code')
+  async remove(
+    @Param('code', ParseIntPipe)
+    code: number,
+  ) {
+    try {
+      await this.productsService.remove(code);
+      return { message: 'Product was deleted successfully' };
+    } catch (error) {
+      throw new HttpException(
+        error.message ||
+          `An error occurred while deleting the product id code ${code}`,
         error.getStatus() || HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

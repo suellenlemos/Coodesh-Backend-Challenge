@@ -31,4 +31,10 @@ export class ProductsRepository {
   ) {
     return this.prismaService.product.findUnique(findUniqueDto);
   }
+
+  async delete<T extends Prisma.ProductUpdateArgs>(
+    updateArgs: Prisma.SelectSubset<T, Prisma.ProductUpdateArgs>,
+  ) {
+    return this.prismaService.product.update(updateArgs);
+  }
 }
