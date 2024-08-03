@@ -22,19 +22,15 @@ export class CreateProductDto {
   url: string;
 
   @IsString()
-  @IsNotEmpty()
   creator: string;
 
   @IsNumber()
-  @IsNotEmpty()
   createdT: number;
 
   @IsNumber()
-  @IsNotEmpty()
   lastModifiedT: number;
 
   @IsString()
-  @IsNotEmpty()
   productName: string;
 
   @IsString()
@@ -42,59 +38,45 @@ export class CreateProductDto {
   quantity: string;
 
   @IsString()
-  @IsNotEmpty()
   brands: string;
 
   @IsString()
-  @IsNotEmpty()
   categories: string;
 
   @IsString()
-  @IsNotEmpty()
   labels: string;
 
   @IsString()
-  @IsNotEmpty()
   cities: string;
 
   @IsString()
-  @IsNotEmpty()
   purchasePlaces: string;
 
   @IsString()
-  @IsNotEmpty()
   stores: string;
 
   @IsString()
-  @IsNotEmpty()
   ingredientsText: string;
 
   @IsString()
-  @IsNotEmpty()
   traces: string;
 
   @IsString()
-  @IsNotEmpty()
   servingSize: string;
 
   @IsNumber()
-  @IsNotEmpty()
   @IsPositive()
   servingQuantity: number;
 
   @IsNumber()
-  @IsNotEmpty()
   nutriscoreScore: number;
 
   @IsString()
-  @IsNotEmpty()
   nutriscoreGrade: string;
 
   @IsString()
-  @IsNotEmpty()
   mainCategory: string;
 
   @IsString()
-  @IsNotEmpty()
   imageUrl: string;
 }

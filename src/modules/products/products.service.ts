@@ -4,6 +4,7 @@ import { toZonedTime } from 'date-fns-tz';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductStatus } from './entities/Product';
 import { ProductsRepository } from 'src/shared/database/repositories/products.repositories';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -12,7 +13,7 @@ export class ProductsService {
   async create(createProductDto: CreateProductDto) {
     const {
       code,
-      status,
+      status = ProductStatus.PUBLISHED,
       importedT = new Date(),
       url,
       creator,
@@ -43,7 +44,7 @@ export class ProductsService {
     return this.productsRepo.create({
       data: {
         code,
-        status: ProductStatus.PUBLISHED,
+        status,
         importedT: convertTimeZone(importedT),
         url,
         creator,
@@ -98,7 +99,7 @@ export class ProductsService {
     }
   }
 
-  async getProductByCode(code: number) {
+  async findUnique(code: number) {
     const product = await this.productsRepo.findUnique({
       where: {
         code: code,
@@ -114,6 +115,61 @@ export class ProductsService {
     }
 
     return product;
+  }
+
+  async update(code: number, updateProductDto: UpdateProductDto) {
+    const {
+      status,
+      url,
+      creator,
+      createdT,
+      lastModifiedT,
+      productName,
+      quantity,
+      brands,
+      categories,
+      labels,
+      cities,
+      purchasePlaces,
+      stores,
+      ingredientsText,
+      traces,
+      servingSize,
+      servingQuantity,
+      nutriscoreScore,
+      nutriscoreGrade,
+      mainCategory,
+      imageUrl,
+    } = updateProductDto;
+
+    return this.productsRepo.update({
+      where: {
+        code: code,
+      },
+      data: {
+        status,
+        url,
+        creator,
+        createdT,
+        lastModifiedT,
+        productName,
+        quantity,
+        brands,
+        categories,
+        labels,
+        cities,
+        purchasePlaces,
+        stores,
+        ingredientsText,
+        traces,
+        servingSize,
+        servingQuantity,
+        nutriscoreScore,
+        nutriscoreGrade,
+        mainCategory,
+        imageUrl,
+      },
+    });
   }
 
   async remove(code: number) {
