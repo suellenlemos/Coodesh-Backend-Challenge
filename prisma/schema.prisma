@@ -8,37 +8,37 @@ datasource db {
 }
 
 enum ProductStatus {
-  DRAFT
-  TRASH
-  PUBLISHED
+  draft
+  trash
+  published
 
   @@map("product_status")
 }
 
 model Product {
-  code             Int           @id @map("_id")
-  status           ProductStatus @default(DRAFT)
-  imported_t       DateTime
-  url              String
-  creator          String
-  created_t        Int
-  last_modified_t  Int
-  product_name     String
-  quantity         String
-  brands           String
-  categories       String
-  labels           String
-  cities           String
-  purchase_places  String
-  stores           String
-  ingredients_text String
-  traces           String
-  serving_size     String
-  serving_quantity Float
-  nutriscore_score Int
-  nutriscore_grade String
-  main_category    String
-  image_url        String
+  code            Int           @id @map("_id")
+  status          ProductStatus @default(draft)
+  importedT       DateTime      @map("imported_t")
+  url             String
+  creator         String
+  createdT        Int           @map("created_t")
+  lastModifiedT   Int           @map("last_modified_t")
+  productName     String        @map("product_name")
+  quantity        String
+  brands          String
+  categories      String
+  labels          String
+  cities          String
+  purchasePlaces  String        @map("purchase_places")
+  stores          String
+  ingredientsText String        @map("ingredients_text")
+  traces          String
+  servingSize     String        @map("serving_size")
+  servingQuantity Float         @map("serving_quantity")
+  nutriscoreScore Int           @map("nutriscore_score")
+  nutriscoreGrade String        @map("nutriscore_grade")
+  mainCategory    String        @map("main_category")
+  imageUrl        String        @map("image_url")
 
   @@map("products")
 }
