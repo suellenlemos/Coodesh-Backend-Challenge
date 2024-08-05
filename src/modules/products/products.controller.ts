@@ -1,27 +1,46 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   HttpException,
   HttpStatus,
+  Logger,
   Param,
   ParseIntPipe,
   Post,
   Put,
   Query,
 } from '@nestjs/common';
+
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 
 @Controller('products')
 export class ProductsController {
+  private readonly logger = new Logger(ProductsController.name);
+
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
   create(@Body() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto);
+  }
+
+  // endpoint to test products insertion in database
+  @Get('insert')
+  async insertProducts() {
+    try {
+      await this.productsService.insertProducts();
+
+      this.logger.debug('Download, decompression, and processing complete');
+      return { message: 'Products were imported successfully' };
+    } catch (error) {
+      throw new HttpException(
+        'Failed process files',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Get()
@@ -54,7 +73,6 @@ export class ProductsController {
     return this.productsService.update(code, updateProductDto);
   }
 
-  @Delete(':code')
   async remove(
     @Param('code', ParseIntPipe)
     code: number,
