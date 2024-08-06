@@ -79,7 +79,7 @@ export class ProductsService {
     });
   }
 
-  async findAll(page: number = 1, perPage: number = 5) {
+  async findAll(page: number = 1, perPage: number = 100) {
     try {
       const skip = (page - 1) * perPage;
 
