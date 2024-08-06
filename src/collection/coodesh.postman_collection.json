@@ -1,0 +1,276 @@
+{
+	"info": {
+		"_postman_id": "a0ec755b-1626-48ec-b991-ec6bbd4e9210",
+		"name": "coodesh",
+		"description": "Coodesh Challenge API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get products",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/products?page=1&per_page=100",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"products"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "per_page",
+							"value": "100"
+						}
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "Insert",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/products/insert",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"products",
+						"insert"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "Get product",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/products/<code>",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"products",
+						"<code>"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "Post data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": null,\n    \"url\": \"https://world.openfoodfacts.org/product/20221126\",\n    \"creator\": \"securita\",\n    \"createdT\": 1415302075,\n    \"lastModifiedT\": 1572265837,\n    \"productName\": \"Madalenas quadradas\",\n    \"quantity\": \"380 g (6 x 2 u.)\",\n    \"brands\": \"La Cestera\",\n    \"categories\": \"Lanches comida, Lanches doces, Biscoitos e Bolos, Bolos, Madalenas\",\n    \"labels\": \"Contem gluten, Contém derivados de ovos, Contém ovos\",\n    \"cities\": \"teste\",\n    \"purchasePlaces\": \"Braga,Portugal\",\n    \"stores\": \"Lidl\",\n    \"ingredientsText\": \"farinha de trigo, açúcar, óleo vegetal de girassol, clara de ovo, ovo, humidificante (sorbitol), levedantes químicos (difosfato dissódico, hidrogenocarbonato de sódio), xarope de glucose-frutose, sal, aroma\",\n    \"traces\": \"Frutos de casca rija,Leite,Soja,Sementes de sésamo,Produtos à base de sementes de sésamo\",\n    \"servingSize\": \"madalena 31.7 g\",\n    \"servingQuantity\": 31.7,\n    \"nutriscoreScore\": 17,\n    \"nutriscoreGrade\": \"d\",\n    \"mainCategory\": \"en:madeleines\",\n    \"imageUrl\": \"https://static.openfoodfacts.org/images/products/20221126/front_pt.5.400.jpg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/products",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"products"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Update data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"published\",\n    \"url\": \"https://world.openfoodfacts.org/product/20221126\",\n    \"creator\": \"test\",\n    \"createdT\": 1415302075,\n    \"lastModifiedT\": 1572265837,\n    \"productName\": \"Madalenas quadradas\",\n    \"quantity\": \"380 g (6 x 2 u.)\",\n    \"brands\": \"La Cestera\",\n    \"categories\": \"Lanches comida, Lanches doces, Biscoitos e Bolos, Bolos, Madalenas\",\n    \"labels\": \"Contem gluten, Contém derivados de ovos, Contém ovos\",\n    \"cities\": \"\",\n    \"purchasePlaces\": \"Braga,Portugal\",\n    \"stores\": \"Lidl\",\n    \"ingredientsText\": \"farinha de trigo, açúcar, óleo vegetal de girassol, clara de ovo, ovo, humidificante (sorbitol), levedantes químicos (difosfato dissódico, hidrogenocarbonato de sódio), xarope de glucose-frutose, sal, aroma\",\n    \"traces\": \"Frutos de casca rija,Leite,Soja,Sementes de sésamo,Produtos à base de sementes de sésamo\",\n    \"servingSize\": \"madalena 31.7 g\",\n    \"servingQuantity\": 31.7,\n    \"nutriscoreScore\": 17,\n    \"nutriscoreGrade\": \"d\",\n    \"mainCategory\": \"en:madeleines\",\n    \"imageUrl\": \"https://static.openfoodfacts.org/images/products/20221126/front_pt.5.400.jpg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/products/<code>",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"products",
+						"<code>"
+					]
+				},
+				"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/products/<code>",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"products",
+						"<code>"
+					]
+				},
+				"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000"
+		}
+	]
+}
