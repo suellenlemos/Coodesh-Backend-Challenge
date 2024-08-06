@@ -1,8 +1,22 @@
-import { Controller, Get, HttpException, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpException,
+  HttpStatus,
+  Logger,
+} from '@nestjs/common';
 import { PrismaService } from './prisma.service';
+import { promises } from 'fs';
+import { join, resolve } from 'path';
+import { formatDate } from '../utils/formatDate';
+
+const logsDir = resolve(__dirname, '..', '..', '..', 'src', 'logs');
 
 @Controller()
 export class HealthController {
+  private readonly logger = new Logger(HealthController.name);
+  private readonly logsFilePath = join(logsDir, 'cron_last_execution.txt');
+
   constructor(private readonly prismaService: PrismaService) {}
 
   @Get()
@@ -12,6 +26,14 @@ export class HealthController {
       const memoryUsage = process.memoryUsage();
 
       await this.prismaService.$runCommandRaw({ ping: 1 });
+
+      let lastExecution = 'Not available';
+      try {
+        const logContent = await promises.readFile(this.logsFilePath, 'utf-8');
+        lastExecution = formatDate(logContent.trim());
+      } catch (err) {
+        this.logger.error('Failed to read last execution date', err.message);
+      }
 
       return {
         status: 'Ok',
@@ -23,6 +45,7 @@ export class HealthController {
           heapUsed: memoryUsage.heapUsed,
           external: memoryUsage.external,
         },
+        cronLastExecution: lastExecution,
       };
     } catch (error) {
       throw new HttpException(

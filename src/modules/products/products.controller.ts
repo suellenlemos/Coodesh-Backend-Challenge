@@ -37,7 +37,7 @@ export class ProductsController {
       return { message: 'Products were imported successfully' };
     } catch (error) {
       throw new HttpException(
-        'Failed process files',
+        'Failed to process files and insert products into database',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

@@ -265,8 +265,9 @@ export class ProductsService {
 
         let products: IProduct[] = [];
 
+        this.logger.debug(`Processing file ${fileName}`);
+
         for await (const line of rl) {
-          this.logger.debug(`Processing file ${fileName}`);
           if (products.length >= 100) break;
           try {
             const product = JSON.parse(line);
