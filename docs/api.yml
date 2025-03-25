@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Coodesh Backend Challenge 20230105
+  title: Open Food Facts REST API
   description: A REST API for accessing data from the Open Food Facts project, a database of nutritional information on various food products.
   version: 1.0.0
 servers:
